@@ -13,30 +13,6 @@ public struct PokemonView: View {
     let pokemon: Pokemon
     @State private var audioPlayer: AVPlayer?
     
-    func colorType(forType type: String) -> Color {
-        switch type.lowercased() {
-        case "normal": return Color.gray
-        case "fire": return Color.red
-        case "water": return Color.blue
-        case "electric": return Color.yellow
-        case "grass": return Color.green
-        case "ice": return Color.cyan
-        case "fighting": return Color.orange
-        case "poison": return Color.purple
-        case "ground": return Color.brown
-        case "flying": return Color.indigo
-        case "psychic": return Color.pink
-        case "bug": return Color.teal
-        case "rock": return Color(.sRGB, red: 168/255, green: 144/255, blue: 122/255, opacity: 1)
-        case "ghost": return Color(.sRGB, red: 112/255, green: 88/255, blue: 152/255, opacity: 1)
-        case "dragon": return Color(.sRGB, red: 112/255, green: 56/255, blue: 248/255, opacity: 1)
-        case "dark": return Color(.sRGB, red: 112/255, green: 88/255, blue: 72/255, opacity: 1)
-        case "steel": return Color(.sRGB, red: 184/255, green: 184/255, blue: 208/255, opacity: 1)
-        case "fairy": return Color(.sRGB, red: 238/255, green: 153/255, blue: 172/255, opacity: 1)
-        default: return Color.gray
-        }
-    }
-    
     let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 2)
     
     public var body: some View {
@@ -54,7 +30,7 @@ public struct PokemonView: View {
                          .frame(width: 200, height: 200)
                          .background(
                              LinearGradient(
-                                colors: pokemon.types.map { colorType(forType: $0.type.name).opacity(0.8) },
+                                colors: pokemon.types.map { PokemonColors.color(for: $0.type.name).opacity(0.8) },
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                              )
@@ -67,7 +43,6 @@ public struct PokemonView: View {
                 } placeholder: {
                     ProgressView()
                 }
-
                 Text(pokemon.name.capitalized)
                     .font(.largeTitle)
                     .bold()
@@ -77,7 +52,7 @@ public struct PokemonView: View {
                     ForEach(pokemon.types, id: \.slot) { typeEntry in
                         Text(typeEntry.type.name.capitalized)
                             .padding(8)
-                            .background(colorType(forType: typeEntry.type.name))
+                            .background(PokemonColors.color(for: typeEntry.type.name))
                             .cornerRadius(10)
                             .foregroundStyle(.black)
                     }
