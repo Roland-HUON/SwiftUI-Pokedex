@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 
 struct HomeView: View {
+    @Environment(UserManager.self) var userManager
     let columns = [
         GridItem(.flexible(), spacing: 16)
     ]
@@ -19,17 +20,10 @@ struct HomeView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            
             VStack(alignment: .leading, spacing: 20) {
-                HStack(alignment: .center) {
-                    Image(.pokeball)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                    Text("Username")
-                        .foregroundStyle(.black)
-                        .bold()
+                if let user = userManager.currentUser {
+                    Header(username: user.pseudo ?? user.firstname)
                 }
-                .padding(.horizontal)
                 
                 VStack(alignment: .center) {
                     Text("SwiftUI-Pokedex")
@@ -67,8 +61,10 @@ struct HomeView: View {
                         x: 10,
                         y: 10
                     )
+                    .padding(.horizontal)
                 }
                 .frame(maxHeight: .infinity)
+                .padding(.horizontal)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -77,5 +73,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environment(UserManager())
 }
-

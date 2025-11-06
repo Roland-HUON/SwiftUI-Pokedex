@@ -17,40 +17,45 @@ struct FriendsView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-                List(viewModel.friends) { friend in
-                    NavigationLink(destination: ChatView(friend: friend)){
-                        HStack(spacing: 12) {
-                            AsyncImage(url: URL(string: friend.avatar)) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
+                VStack{
+                    Text("Friends")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                        .bold()
+                        .padding(.top)
+                    List(viewModel.friends) { friend in
+                        NavigationLink(destination: ChatView(friend: friend)){
+                            HStack(spacing: 12) {
+                                AsyncImage(url: URL(string: friend.avatar)) { image in
+                                    image.resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                
+                                VStack(alignment: .leading) {
+                                    Text(friend.pseudo ?? "\(friend.firstname) \(friend.lastName)")
+                                        .font(.headline)
+                                    Text(friend.idLogin)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
                             }
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                            
-                            VStack(alignment: .leading) {
-                                Text(friend.pseudo ?? "\(friend.firstname) \(friend.lastName)")
-                                    .font(.headline)
-                                Text(friend.idLogin)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
+                            .padding(.vertical, 4)
                         }
-                        .padding(.top, 10)
-                        .padding(.vertical, 4)
                     }
-                }
-                .navigationTitle("Friends")
-                .overlay {
-                    if viewModel.isLoading {
-                        ProgressView("Loading...")
+                    .overlay {
+                        if viewModel.isLoading {
+                            ProgressView("Loading...")
+                        }
                     }
+                    .onAppear {
+                        viewModel.loadFriends()
+                    }
+                    .background(.clear)
+                    .scrollContentBackground(.hidden)
                 }
-                .onAppear {
-                    viewModel.loadFriends()
-                }
-                .background(.clear)
-                .scrollContentBackground(.hidden)
             }
         }
     }

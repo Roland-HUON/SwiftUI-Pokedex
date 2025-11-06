@@ -9,6 +9,7 @@ import DesignSystem
 
 struct PokedexView: View {
     @State var pokedexViewModel = PokedexViewModel()
+    @Environment(UserManager.self) var userManager
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 4)
     
@@ -19,16 +20,9 @@ struct PokedexView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             VStack(alignment: .leading){
-                HStack(alignment: .center){
-                    Image(.pokeball)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                    Text("Username")
-                        .foregroundStyle(.black)
-                        .bold()
-                        
+                if let user = userManager.currentUser {
+                    Header(username: user.pseudo ?? user.firstname)
                 }
-                .padding(.horizontal, 30)
                 VStack{
                     ScrollView{
                         Text("Pokedex")
@@ -74,4 +68,5 @@ struct PokedexView: View {
 
 #Preview {
     PokedexView()
+        .environment(UserManager())
 }

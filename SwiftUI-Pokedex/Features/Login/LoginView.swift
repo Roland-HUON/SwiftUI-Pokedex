@@ -9,7 +9,7 @@ import SwiftUI
 import DesignSystem
 
 struct LoginView: View {
-    
+    @Environment(UserManager.self) var userManager
     @State private var id: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
@@ -27,7 +27,7 @@ struct LoginView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
 
-            if isLoggedIn {
+            if let _ = userManager.currentUser {
                 HomeView()
             } else {
                 VStack(spacing: 20) {
@@ -109,6 +109,7 @@ struct LoginView: View {
     private func checkLogin() -> Bool {
         if let user = UserMock.validate(id: id, password: password) {
             print("Login successful! Welcome \(user.pseudo ?? user.firstname)")
+            userManager.currentUser = user
             return true
         } else {
             remainingTries -= 1
@@ -122,4 +123,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environment(UserManager())
 }

@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct SwiftUI_PokedexApp: App {
+    @State private var userManager = UserManager()
     var body: some Scene {
         WindowGroup {
             NavigationStack{
                 LoginView()
+                    .environment(userManager)
             }
             .background(Color.clear)
             .scrollContentBackground(.hidden)

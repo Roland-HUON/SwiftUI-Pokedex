@@ -10,7 +10,7 @@ import DesignSystem
 struct TeamView: View {
     @State var pokedexViewModel = PokedexViewModel()
     @State var teamViewModel = TeamViewModel()
-    
+    @Environment(UserManager.self) var userManager
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 4)
     
@@ -24,15 +24,9 @@ struct TeamView: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .leading) {
-                HStack(alignment: .center) {
-                    Image(.pokeball)
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                    Text("Username")
-                        .foregroundStyle(.black)
-                        .bold()
+                if let user = userManager.currentUser {
+                    Header(username: user.pseudo ?? user.firstname)
                 }
-                .padding(.horizontal, 30)
                 ScrollView {
                     VStack(spacing: 20) {
                         if !teamViewModel.team.isEmpty {
@@ -98,4 +92,5 @@ struct TeamView: View {
 
 #Preview {
     TeamView()
+        .environment(UserManager())
 }

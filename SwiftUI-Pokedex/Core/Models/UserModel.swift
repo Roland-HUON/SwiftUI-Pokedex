@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct UserModel: Identifiable {
+public struct UserModel: Identifiable, Codable {
     public var id: Int
     public var pseudo: String?
     public var firstname : String
