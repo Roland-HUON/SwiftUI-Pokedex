@@ -1,5 +1,5 @@
 //
-//  FriendModel.swift
+//  UserModel.swift
 //  SwiftUI-Pokedex
 //
 //  Created by HUON Roland on 06/11/2025.
@@ -14,5 +14,5 @@ public struct UserModel: Identifiable {
     public var lastName : String
     public var avatar : String
     public var idLogin : String
-    
+    public var password : String
 }
