@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EF3905E22EBA323800CB59DB /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EF3905E12EBA323800CB59DB /* DesignSystem */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		EF8EA43D2EB9E53A0018EFEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF3905E22EBA323800CB59DB /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF3905E02EBA323800CB59DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EF8EA4252EB9E5390018EFEE = {
 			isa = PBXGroup;
 			children = (
 				EF8EA4302EB9E5390018EFEE /* SwiftUI-Pokedex */,
 				EF8EA43F2EB9E53A0018EFEE /* SwiftUI-PokedexTests */,
 				EF8EA4492EB9E53A0018EFEE /* SwiftUI-PokedexUITests */,
+				EF3905E02EBA323800CB59DB /* Frameworks */,
 				EF8EA42F2EB9E5390018EFEE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +125,7 @@
 			);
 			name = "SwiftUI-Pokedex";
 			packageProductDependencies = (
+				EF3905E12EBA323800CB59DB /* DesignSystem */,
 			);
 			productName = "SwiftUI-Pokedex";
 			productReference = EF8EA42E2EB9E5390018EFEE /* SwiftUI-Pokedex.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = EF8EA4252EB9E5390018EFEE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EF3905DD2EBA319800CB59DB /* XCLocalSwiftPackageReference "../DesignSystem" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EF8EA42F2EB9E5390018EFEE /* Products */;
 			projectDirPath = "";
@@ -583,6 +600,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		EF3905DD2EBA319800CB59DB /* XCLocalSwiftPackageReference "../DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../DesignSystem;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EF3905E12EBA323800CB59DB /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EF8EA4262EB9E5390018EFEE /* Project object */;
 }
