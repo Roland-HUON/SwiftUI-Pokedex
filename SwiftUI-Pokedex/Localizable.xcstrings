@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
     "%@ : %lld" : {
       "localizations" : {
         "en" : {
@@ -198,6 +195,7 @@
       "shouldTranslate" : false
     },
     "Username" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

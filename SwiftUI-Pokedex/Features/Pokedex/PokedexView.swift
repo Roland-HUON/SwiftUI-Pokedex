@@ -57,7 +57,6 @@ struct PokedexView: View {
             await pokedexViewModel.fetchPokemons(number: 0)
         }
     }
-    
     private func pokemonImageURL(pokemonId: Int) -> String {
         return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
     }

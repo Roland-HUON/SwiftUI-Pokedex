@@ -1,58 +1,44 @@
-//
-//  PokedexViewModel.swift
-//  SwiftUI-Pokedex
-//
-//  Created by HUON Roland on 06/11/2025.
-//
 import Foundation
 
 @MainActor
 @Observable
 class PokedexViewModel {
+    private let service: PokemonServiceProtocol
+
     var pokemons: [Pokemon] = []
     var isLoading = true
 
+    init(service: PokemonServiceProtocol = PokeAPIService()) {
+        self.service = service
+    }
+
     func fetchPokemons(number: Int) async {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?offset=\(number)&limit=100") else { return }
-
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoded = try JSONDecoder().decode(PokemonResponse.self, from: data)
+            self.isLoading = true
 
-            let pokemonsDetails: [Pokemon?] = try await withThrowingTaskGroup(of: Pokemon?.self) { group in
-                for item in decoded.results {
+            let basicPokemons = try await service.fetchPokemons(offset: number, limit: 100)
+
+            var detailedPokemons: [Pokemon] = []
+            try await withThrowingTaskGroup(of: Pokemon?.self) { group in
+                for item in basicPokemons {
                     group.addTask {
-                        await self.fetchPokemonDetails(from: "https://pokeapi.co/api/v2/pokemon/\(item.name)")
+                        try? await self.service.fetchPokemonDetails(from: "https://pokeapi.co/api/v2/pokemon/\(item.name)")
                     }
                 }
 
-                var results: [Pokemon?] = []
                 for try await result in group {
-                    results.append(result)
+                    if let pokemon = result {
+                        detailedPokemons.append(pokemon)
+                    }
                 }
-                return results
             }
 
-            self.pokemons = pokemonsDetails
-                                .compactMap { $0 }
-                                .sorted { $0.id < $1.id }
+            self.pokemons = detailedPokemons.sorted { $0.id < $1.id }
             self.isLoading = false
 
         } catch {
-            print("Erreur : ", error)
+            print("Erreur fetchPokemons: ", error)
             self.isLoading = false
-        }
-    }
-
-    private func fetchPokemonDetails(from urlString: String) async -> Pokemon? {
-        guard let url = URL(string: urlString) else { return nil }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoded = try JSONDecoder().decode(Pokemon.self, from: data)
-            return decoded
-        } catch {
-            print("Erreur Pokémon :", error)
-            return nil
         }
     }
 }
