@@ -18,25 +18,27 @@ struct FriendsView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                 List(viewModel.friends) { friend in
-                    HStack(spacing: 12) {
-                        AsyncImage(url: URL(string: friend.avatar)) { image in
-                            image.resizable()
-                        } placeholder: {
-                            ProgressView()
+                    NavigationLink(destination: ChatView(friend: friend)){
+                        HStack(spacing: 12) {
+                            AsyncImage(url: URL(string: friend.avatar)) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                            
+                            VStack(alignment: .leading) {
+                                Text(friend.pseudo ?? "\(friend.firstname) \(friend.lastName)")
+                                    .font(.headline)
+                                Text(friend.idLogin)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-                        
-                        VStack(alignment: .leading) {
-                            Text(friend.pseudo ?? "\(friend.firstname) \(friend.lastName)")
-                                .font(.headline)
-                            Text(friend.idLogin)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
+                        .padding(.top, 10)
+                        .padding(.vertical, 4)
                     }
-                    .padding(.top, 10)
-                    .padding(.vertical, 4)
                 }
                 .navigationTitle("Friends")
                 .overlay {
