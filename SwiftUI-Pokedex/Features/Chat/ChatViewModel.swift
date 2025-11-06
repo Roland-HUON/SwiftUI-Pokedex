@@ -5,12 +5,12 @@
 //  Created by HUON Roland on 06/11/2025.
 //
 import Foundation
-import SwiftUI
 
 @MainActor
-final class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
-    @Published var userInput: String = ""
+@Observable
+final class ChatViewModel {
+    var messages: [Message] = []
+    var userInput: String = ""
     
     let friend: UserModel
     
@@ -47,7 +47,7 @@ final class ChatViewModel: ObservableObject {
         case "pikachu":
             return "Pika Pika ⚡️"
         default:
-            return nil
+            return "Je sais pas quoi te répondre mais bon courage ! 😄"
         }
     }
 }

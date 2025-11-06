@@ -8,16 +8,17 @@
 import Foundation
 
 @MainActor
-final class FriendsViewModel: ObservableObject {
-    @Published var friends: [UserModel] = []
-    @Published var isLoading = false
+@Observable
+final class FriendsViewModel {
+    var friends: [UserModel] = []
+    var isLoading = false
     
     private let mock = UserMock.shared
     
     func loadFriends() {
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.friends = self.mock.getFriends()
+            self.friends = self.mock.getUsers()
             self.isLoading = false
         }
     }

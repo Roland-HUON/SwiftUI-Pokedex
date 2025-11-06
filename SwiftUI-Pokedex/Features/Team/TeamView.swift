@@ -8,8 +8,8 @@ import SwiftUI
 import DesignSystem
 
 struct TeamView: View {
-    @StateObject var pokedexViewModel = PokedexViewModel()
-    @StateObject var teamViewModel = TeamViewModel()
+    @State var pokedexViewModel = PokedexViewModel()
+    @State var teamViewModel = TeamViewModel()
     
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 4)
@@ -28,42 +28,42 @@ struct TeamView: View {
                     Image(.pokeball)
                         .resizable()
                         .frame(width: 32, height: 32)
-                    Text("Pseudo")
+                    Text("Username")
                         .foregroundStyle(.black)
                         .bold()
                 }
                 .padding(.horizontal, 30)
-                VStack(spacing: 20) {
-                    if !teamViewModel.team.isEmpty {
-                        Text("My Team")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.black)
-                        
-                        LazyVGrid(columns: columnsTeam, spacing: 20) {
-                            ForEach(teamViewModel.team) { pokemon in
-                                ZStack(alignment: .topTrailing) {
-                                    PokemonCard(
-                                        imageURL: pokemonImageURL(pokemonId: pokemon.id),
-                                        types: typesMap(for: pokemon)
-                                    )
-                                    
-                                    Button {
-                                        teamViewModel.removePokemonFromTeam(pokemon)
-                                    } label: {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.red)
-                                            .background(Circle().fill(Color.white))
+                ScrollView {
+                    VStack(spacing: 20) {
+                        if !teamViewModel.team.isEmpty {
+                            Text("My Team")
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(.black)
+                            
+                            LazyVGrid(columns: columnsTeam, spacing: 20) {
+                                ForEach(teamViewModel.team) { pokemon in
+                                    ZStack(alignment: .topTrailing) {
+                                        PokemonCard(
+                                            imageURL: pokemonImageURL(pokemonId: pokemon.id),
+                                            types: typesMap(for: pokemon)
+                                        )
+                                        
+                                        Button {
+                                            teamViewModel.removePokemonFromTeam(pokemon)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .foregroundColor(.red)
+                                                .background(Circle().fill(Color.white))
+                                        }
+                                        .offset(x: -6, y: 6)
                                     }
-                                    .offset(x: -6, y: 6)
                                 }
                             }
+                            .padding()
                         }
-                        .padding()
                     }
-                }
-                .padding()
-                ScrollView {
+                    .padding(.vertical, 5)
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(pokedexViewModel.pokemons.filter { pokemon in !teamViewModel.team.contains(where: { $0.id == pokemon.id })}) { pokemon in
                             PokemonCard(

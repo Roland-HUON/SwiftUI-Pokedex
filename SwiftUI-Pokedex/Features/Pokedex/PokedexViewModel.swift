@@ -4,12 +4,13 @@
 //
 //  Created by HUON Roland on 06/11/2025.
 //
-import SwiftUI
+import Foundation
 
 @MainActor
-class PokedexViewModel: ObservableObject {
-    @Published var pokemons: [Pokemon] = []
-    @Published var isLoading = true
+@Observable
+class PokedexViewModel {
+    var pokemons: [Pokemon] = []
+    var isLoading = true
 
     func fetchPokemons(number: Int) async {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?offset=\(number)&limit=100") else { return }

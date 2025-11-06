@@ -7,10 +7,10 @@
 import SwiftUI
 
 struct ChatView: View {
-    @StateObject private var viewModel: ChatViewModel
+    @State private var viewModel: ChatViewModel
     
     init(friend: UserModel) {
-        _viewModel = StateObject(wrappedValue: ChatViewModel(friend: friend))
+        _viewModel = State(wrappedValue: ChatViewModel(friend: friend))
     }
     
     var body: some View {
@@ -71,7 +71,7 @@ struct ChatView: View {
                 }
                 
                 HStack {
-                    TextField("Écris un message...", text: $viewModel.userInput)
+                    TextField("Write a message...", text: $viewModel.userInput)
                         .padding(10)
                         .background(.white)
                         .cornerRadius(14)

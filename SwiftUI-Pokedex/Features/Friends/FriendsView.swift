@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FriendsView: View {
-    @StateObject private var viewModel = FriendsViewModel()
+    @State private var viewModel = FriendsViewModel()
     
     var body: some View {
         NavigationView {
@@ -43,7 +43,7 @@ struct FriendsView: View {
                 .navigationTitle("Friends")
                 .overlay {
                     if viewModel.isLoading {
-                        ProgressView("Chargement...")
+                        ProgressView("Loading...")
                     }
                 }
                 .onAppear {

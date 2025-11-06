@@ -25,7 +25,7 @@ struct HomeView: View {
                     Image(.pokeball)
                         .resizable()
                         .frame(width: 32, height: 32)
-                    Text("Pseudo")
+                    Text("Username")
                         .foregroundStyle(.black)
                         .bold()
                 }

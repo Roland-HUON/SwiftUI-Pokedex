@@ -9,6 +9,7 @@ import SwiftUI
 import DesignSystem
 
 struct LoginView: View {
+    
     @State private var id: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
@@ -42,6 +43,7 @@ struct LoginView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                             .stroke(.blue, lineWidth: 2)
+                            .textInputAutocapitalization(.never)
                         )
                         .padding(.horizontal)
 
@@ -105,8 +107,8 @@ struct LoginView: View {
     }
 
     private func checkLogin() -> Bool {
-        if id == "pikapika" && password == "pikachuchu" {
-            print("Login successful!")
+        if let user = UserMock.validate(id: id, password: password) {
+            print("Login successful! Welcome \(user.pseudo ?? user.firstname)")
             return true
         } else {
             remainingTries -= 1

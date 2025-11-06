@@ -8,7 +8,7 @@ import SwiftUI
 import DesignSystem
 
 struct PokedexView: View {
-    @StateObject var pokedexViewModel = PokedexViewModel()
+    @State var pokedexViewModel = PokedexViewModel()
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 4)
     
@@ -23,7 +23,7 @@ struct PokedexView: View {
                     Image(.pokeball)
                         .resizable()
                         .frame(width: 32, height: 32)
-                    Text("Pseudo")
+                    Text("Username")
                         .foregroundStyle(.black)
                         .bold()
                         
@@ -31,7 +31,7 @@ struct PokedexView: View {
                 .padding(.horizontal, 30)
                 VStack{
                     ScrollView{
-                        Text("Pokédex")
+                        Text("Pokedex")
                             .bold()
                             .font(.largeTitle)
                             .shadow(radius: 4)
@@ -56,7 +56,6 @@ struct PokedexView: View {
                         x: 10,
                         y: 10
                     )
-                    .padding(.horizontal, 20)
                 }
             }
         }
