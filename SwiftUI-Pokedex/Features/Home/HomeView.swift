@@ -53,7 +53,7 @@ struct HomeView: View {
                             color: .black
                         )
                         BtnHome(
-                            destination: PokedexView(),
+                            destination: FriendsView(),
                             text: "Friends",
                             image: "Pokeball",
                             backgroundColor: .white,
